@@ -130,5 +130,53 @@ int main() {
         default:
             cout << "Invalid input!" << endl;
     }
+
+    if (menuRes == 1 && categoryRes >= 1 && categoryRes <= 3 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
+        
+        double prices[3][3][3] = {
+            {{5.00, 8.00, 10.00}, {10.00, 12.00, 15.00}, {6.00, 8.00, 10.00}},
+            {{120.00, 150.00, 90.00}, {80.00, 70.00, 60.00}, {150.00, 80.00, 120.00}},
+            {{1500.00, 800.00, 1200.00}, {350.00, 300.00, 350.00}, {20.00, 100.00, 50.00}}
+        };
+        const char* names[3][3][3] = {
+            {{"Paracetamol 500mg", "Ibuprofen 200mg", "Mefenamic Acid 500mg"}, {"Bioflu Tablet", "Tuseran Forte", "Carbocisteine 500mg"}, {"Vitamin C 500mg", "Vitamin B-Complex", "Vitamin D3"}},
+            {{"Shampoo", "Body Wash", "Toothpaste"}, {"Hand Sanitizer", "Wet Wipes", "Facial Tissue"}, {"Digital Thermometer", "Face Mask Pack", "Hot/Cold Compress"}},
+            {{"Digital Blood Pressure Monitor", "Digital Pulse Oximeter", "Digital Weighing Scale"}, {"Elastic Knee Support", "Wrist Support", "Ankle Support"}, {"Disposable Syringes", "Disposable Gloves", "Cotton Applicator Sticks"}}
+        };
+
+        int quantity;
+        double price, total, payment, change;
+
+        price = prices[categoryRes - 1][subCategoryRes - 1][productRes - 1];
+        
+        cout << "────────────── PAYMENT ──────────────" << endl;
+        cout << "Enter quantity: ";
+        cin >> quantity;
+        while (quantity < 1) {
+            cout << "Invalid quantity! Enter again: ";
+            cin >> quantity;
+        }
+        total = price * quantity;
+        cout.setf(ios::fixed);
+        cout.precision(2);
+        cout << "Total Amount: ₱" << total << endl;
+        cout << "Enter payment: ₱";
+        cin >> payment;
+        while (payment < total) {
+            cout << "Insufficient payment! Enter again: ₱";
+            cin >> payment;
+        }
+        change = payment - total;
+
+        cout << "────────────── RECEIPT ──────────────" << endl;
+        cout << "Product:  " << names[categoryRes - 1][subCategoryRes - 1][productRes - 1] << endl;
+        cout << "Price:    ₱" << price << endl;
+        cout << "Quantity: " << quantity << endl;
+        cout << "Total:    ₱" << total << endl;
+        cout << "Payment:  ₱" << payment << endl;
+        cout << "Change:   ₱" << change << endl;
+        cout << "────────────── THANK YOU! ──────────────" << endl;
+    }
+
     return 0;
 }

@@ -1,0 +1,28 @@
+ID,Name,Category,Price,Stock
+1,Paracetamol 500mg,Medicine,5.00,100
+2,Ibuprofen 200mg,Medicine,8.00,100
+3,Mefenamic Acid 500mg,Medicine,10.00,100
+4,Bioflu Tablet,Medicine,10.00,100
+5,Tuseran Forte,Medicine,12.00,100
+6,Carbocisteine 500mg,Medicine,15.00,100
+7,Vitamin C 500mg,Vitamins,6.00,100
+8,Vitamin B-Complex,Vitamins,8.00,100
+9,Vitamin D3,Vitamins,10.00,100
+10,Shampoo,Personal Care,120.00,100
+11,Body Wash,Personal Care,150.00,100
+12,Toothpaste,Personal Care,90.00,100
+13,Hand Sanitizer,Hygiene Products,80.00,100
+14,Wet Wipes,Hygiene Products,70.00,100
+15,Facial Tissue,Hygiene Products,60.00,100
+16,Digital Thermometer,Medical Supplies,150.00,100
+17,Face Mask Pack,Medical Supplies,80.00,100
+18,Hot/Cold Compress,Medical Supplies,120.00,100
+19,Digital Blood Pressure Monitor,Medical Equipment,1500.00,100
+20,Digital Pulse Oximeter,Medical Equipment,800.00,100
+21,Digital Weighing Scale,Medical Equipment,1200.00,100
+22,Elastic Knee Support,Medical Support,350.00,100
+23,Wrist Support,Medical Support,300.00,100
+24,Ankle Support,Medical Support,350.00,100
+25,Disposable Syringes,Healthcare Supplies,20.00,100
+26,Disposable Gloves,Healthcare Supplies,100.00,100
+27,Cotton Applicator Sticks,Healthcare Supplies,50.00,100
