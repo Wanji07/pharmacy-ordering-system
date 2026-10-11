@@ -1,6 +1,65 @@
 #include <iostream>
 #include <cstdlib> 
+
+// CSV libraries
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <vector>
+
 using namespace std;
+
+struct Product { 
+    int id;
+    string name;
+    string category;
+    double price;
+    int stock;
+};
+
+vector<Product> loadProducts(string filename) {
+    vector<Product> products;
+
+    ifstream file(filename);
+
+    if (!file.is_open()) {
+        cout << "Unable to open the CSV file." << endl;
+        return products;
+    }
+
+    string line;
+
+    getline(file, line);
+
+    while (getline(file, line)) {
+        stringstream row(line);
+
+        Product product;
+        string value;
+
+        getline(row, value, ',');
+        product.id = stoi(value);
+
+        getline(row, product.name, ',');
+
+        getline(row, product.category, ',');
+
+        getline(row, value, ',');
+        product.price = stoi(value);
+
+        getline(row, value, ',');
+        product.stock = stoi(value);
+
+        products.push_back(product);
+
+    }
+
+    file.close();
+
+    return products;
+
+}
 
 int main() {
 
@@ -11,7 +70,8 @@ int main() {
 
     cout << "────────────── MAIN MENU ──────────────" << endl;
     cout << "1.) Order Products" << endl;
-    cout << "2.) Exit" << endl;
+    cout << "2.) Enter as Administrator" << endl;
+    cout << "3.) Exit" << endl;
     cin >> menuRes;
 
     switch (menuRes) {
@@ -124,6 +184,9 @@ int main() {
             }
             break;
         case 2:
+            cout << "The CSV is currently in development!" << endl;
+        break;
+        case 3:
             cout << "Thank You!" << endl;
             exit(EXIT_SUCCESS);
             break;
