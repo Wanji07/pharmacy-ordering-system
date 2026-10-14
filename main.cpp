@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-
+#include <iomanip>
 using namespace std;
 
 struct Product { 
@@ -23,8 +23,11 @@ vector<Product> loadProducts(string filename) {
 
     ifstream file(filename);
 
+
     if (!file.is_open()) {
         cout << "Unable to open the CSV file." << endl;
+         cout << "[ERROR] Could not open file: " << filename << endl;
+        cout << "Make sure 'products.csv' is in the same folder as your executable." << endl;
         return products;
     }
 
@@ -46,7 +49,7 @@ vector<Product> loadProducts(string filename) {
         getline(row, product.category, ',');
 
         getline(row, value, ',');
-        product.price = stoi(value);
+        product.price = stod(value);
 
         getline(row, value, ',');
         product.stock = stoi(value);
@@ -62,12 +65,11 @@ vector<Product> loadProducts(string filename) {
 }
 
 int main() {
-
+    vector<Product> inventory = loadProducts("products.csv");
     int menuRes, categoryRes, subCategoryRes, productRes;
     
     cout << "────────────── PHARMACY SYSTEM OVERVIEW ──────────────" << endl;
     cout << endl;
-
     cout << "────────────── MAIN MENU ──────────────" << endl;
     cout << "1.) Order Products" << endl;
     cout << "2.) Enter as Administrator" << endl;
@@ -183,9 +185,29 @@ int main() {
                     cout << "Invalid input!" << endl;
             }
             break;
-        case 2:
-            cout << "The CSV is currently in development!" << endl;
-        break;
+        case 2: {
+            cout << "\n────────────── ADMINISTRATOR PANEL - INVENTORY ──────────────" << endl;
+            if (inventory.empty()) {
+                cout << "No products found or file could not be read." << endl;
+            } else {
+                cout << left << setw(5) << "ID" 
+                     << setw(35) << "Product Name" 
+                     << setw(22) << "Category" 
+                     << setw(12) << "Price" 
+                     << setw(8) << "Stock" << endl;
+                cout << string(82, '-') << endl;
+
+                for (const auto& p : inventory) {
+                    cout << left << setw(5) << p.id 
+                         << setw(35) << p.name 
+                         << setw(22) << p.category 
+                         << "₱" << setw(11) << fixed << setprecision(2) << p.price 
+                         << setw(8) << p.stock << endl;
+                }
+            }
+            cout << string(82, '-') << endl;
+            break;
+        }
         case 3:
             cout << "Thank You!" << endl;
             exit(EXIT_SUCCESS);
