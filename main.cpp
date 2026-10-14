@@ -345,14 +345,14 @@ int main() {
                 cout << "Enter the new Product price for: " << selectedProduct.name << endl;
                 cin >> priceRes;
                 selectedProduct.price = priceRes;
-                cout << "The new Product price for: " << selectedProduct.name << "is " << priceRes << "!" << endl;
+                cout << "The new Product price for: " << selectedProduct.name << " is " << priceRes << "!" << endl;
                 saveProducts("products.csv", products);
             break;
             case 2:
                 cout << "Enter the new Product stock for: " << selectedProduct.name << endl;
                 cin >> stockRes;
                 selectedProduct.stock = stockRes;
-                cout << "The new Product stock for: " << selectedProduct.name << "is " << stockRes << "!" << endl;
+                cout << "The new Product stock for: " << selectedProduct.name << " is " << stockRes << "!" << endl;
                 saveProducts("products.csv", products);
             break;
             default:
