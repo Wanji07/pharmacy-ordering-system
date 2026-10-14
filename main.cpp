@@ -246,8 +246,6 @@ int main() {
         
         change = payment - total;
 
-        selectedProduct.stock -= quantity;
-
         cout << "────────────── RECEIPT ──────────────" << endl;
         cout << "Product:  " << selectedProduct.name << endl;
         cout << "Price:    ₱" << selectedProduct.price << endl;
