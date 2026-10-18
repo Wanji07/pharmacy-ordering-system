@@ -4,6 +4,7 @@
 // CSV libraries
 #include <iostream>
 #include <fstream>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -365,7 +366,8 @@ int main() {
     if (menuRes == 1 && categoryRes >= 1 && categoryRes <= 3 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
     
         int quantity;
-        double price, total, payment, change;
+        double price, total, payment, change, vat, vatable;
+        char discountRes;
 
         int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
         // ^^ Based on the answer of this formula, it will be the ID of the CSV itself.
@@ -388,7 +390,34 @@ int main() {
             cin >> quantity;
         }
 
+        cout << "────────────── DISCOUNT ──────────────" << endl;
+        cout << "Are you a senior citizen or PWD? (Y/N): ";
+        cin >> discountRes;
+
+        bool customerEligible = discountRes == 'Y' || discountRes == 'y';
+
+        set<int> noVatExemptionIds = {10, 11, 12, 13, 14, 15};
+
+        bool discountApplies = customerEligible;
+        bool vatExempt = customerEligible && noVatExemptionIds.count(selectedProduct.id) == 0;
+
         total = price * quantity;
+
+        if (vatExempt) {
+            total /= 1.12;
+        }
+
+        if (discountApplies) {
+            total *= 0.8;
+        }
+
+        if (vatExempt) {
+            vat = 0;
+            vatable = 0;
+        } else {
+            vat = total * 12.0 / 112.0;
+            vatable = total - vat;
+        }
 
         cout.setf(ios::fixed);
         cout.precision(2);
@@ -413,6 +442,8 @@ int main() {
         cout << "Price:    ₱" << selectedProduct.price << endl;
         cout << "Quantity: " << quantity << endl;
         cout << "Total:    ₱" << total << endl;
+        cout << "VATable   ₱" << vatable << endl;
+        cout << "VAT       ₱" << vat << endl;
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
         cout << "────────────── THANK YOU! ──────────────" << endl;
