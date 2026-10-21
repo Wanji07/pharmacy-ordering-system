@@ -22,6 +22,11 @@ struct Product {
     int stock;
 };
 
+struct CartItem {
+    Product product;
+    int quantity;
+};
+
 // BORDER STYLING
 
 void printLine(int width) {
@@ -342,7 +347,8 @@ int selectProduct(int categoryRes, int subCategoryRes) {
 } 
 
 int main() {
-
+    vector<CartItem> cart; //Cart vector load in int main so it can be accessed from the switch and receipt at the bottom
+    vector<Product> products = loadProducts("products.csv"); //same with this one
     int menuRes, categoryRes, subCategoryRes, productRes;
     int adminMenuRes, stockRes;
     double priceRes;
@@ -357,12 +363,50 @@ int main() {
     cin >> menuRes;
 
     switch (menuRes) {
-        case 1:
+        case 1: {
+        char looper;
+        do {
             categoryRes = selectCategory();
             subCategoryRes = selectSubCategory(categoryRes);
             productRes = selectProduct(categoryRes, subCategoryRes);
-        break;
+           if (categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
+            
+            //Calculate Index inside of the case statement to get product ID then add to cart 
+             // ^^ Based on the answer of this formula, it will be the ID of the CSV itself.
+            // ex. category = 1, subcategory = 2, product = 3
+            // answer will be: 0 + 3 + 2 = (ID = 4 / due to zero-based indexing)
 
+            // 1 category -> 3 subcategories -> 3 products
+            // 1 subcategory -> 3 products
+            int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
+            Product& selectedProduct = products[selectedIndex];
+
+            int quantity;
+            cout << "You selected: " << selectedProduct.name << endl;
+            cout << "Available Stock: " << selectedProduct.stock << endl;
+            cout << "Enter quantity: ";
+            cin >> quantity;
+
+            while (quantity < 1 || quantity > selectedProduct.stock) {
+                cout << "Invalid quantity or insufficient stock! Enter again: ";
+                cin >> quantity;
+            }
+            cart.push_back({selectedProduct, quantity});
+
+            cout << "Successfully added " << quantity << "x " << selectedProduct.name << " to your cart!" << endl;
+
+        } else {
+            cout << "Invalid selection!" << endl;
+        }
+        cout << "Would you like to order more? (y/n): ";
+        cin >> looper;
+        } while (looper == 'y' || looper == 'Y');
+        break;
+        }
+
+
+
+        
         case 2:
             if (!authenticateAdmin()) {
                 break;
@@ -385,8 +429,7 @@ int main() {
             cout << "Invalid input!" << endl;
     }
 
-    vector<Product> products = loadProducts("products.csv");
-
+    
     // ADMINISTRATOR BACKEND
 
     if (menuRes == 2 && categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
@@ -419,35 +462,10 @@ int main() {
         }
     }
 
-    // CALCULATIONS
-
-    if (menuRes == 1 && categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
-    
-        int quantity;
-        double price, total, payment, change, vat, vatable;
+    //RECEIPT AND DISCOUNT CALCULATION
+    if (!cart.empty()) {
         char discountRes;
-
-        int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
-        // ^^ Based on the answer of this formula, it will be the ID of the CSV itself.
-        // ex. category = 1, subcategory = 2, product = 3
-        // answer will be: 0 + 3 + 2 = (ID = 4 / due to zero-based indexing)
-
-        // 1 category -> 3 subcategories -> 3 products
-        // 1 subcategory -> 3 products
-
-        Product& selectedProduct = products[selectedIndex];
-
-        price = selectedProduct.price;
         
-        printHeader("PAYMENT");
-        cout << "Enter quantity: ";
-        cin >> quantity;
-
-        while (quantity < 1 || quantity > selectedProduct.stock) {
-            cout << "Invalid quantity or insufficient stock! Enter again: ";
-            cin >> quantity;
-        }
-
         printHeader("DISCOUNT");
         cout << "Are you a senior citizen or PWD? (Y/N): ";
         cin >> discountRes;
@@ -458,67 +476,95 @@ int main() {
             case 'Y':
             case 'y':
                 customerEligible = true;
-            break;
+                break;
             case 'N':
             case 'n':
                 customerEligible = false;
-            break;
+                break;
             default:
-            cout << "Invalid input!" << endl;
-            break;
+                cout << "Invalid input!" << endl;
+                customerEligible = false;
+                break;
         }
+
         set<int> noVatExemptionIds = {
             10, 11, 12, 13, 14, 15,
             28, 29, 30, 31, 32, 33, 34, 35, 36,
             37, 38, 39, 40, 41, 42, 43, 44, 45
         };
 
-        bool discountApplies = customerEligible;
-        bool vatExempt = customerEligible && noVatExemptionIds.count(selectedProduct.id) == 0;
+        double grandTotal = 0.0;
+        double totalVat = 0.0;
+        double totalVatable = 0.0;
 
-        total = price * quantity;
+        // Loop through the cart to accumulate totals for all items ordered
+        for (const auto& item : cart) {
+            double itemPrice = item.product.price;
+            int itemQuantity = item.quantity;
+            
+            bool discountApplies = customerEligible;
+            bool vatExempt = customerEligible && noVatExemptionIds.count(item.product.id) == 0;
 
-        if (vatExempt) {
-            total /= 1.12;
+            double itemTotal = itemPrice * itemQuantity;
+
+            if (vatExempt) {
+                itemTotal /= 1.12;
+            }
+
+            if (discountApplies) {
+                itemTotal *= 0.8;
+            }
+
+            double itemVat = 0.0;
+            double itemVatable = 0.0;
+            if (vatExempt) {
+                itemVat = 0;
+                itemVatable = 0;
+            } else {
+                itemVat = itemTotal * 12.0 / 112.0;
+                itemVatable = itemTotal - itemVat;
+            }
+
+            grandTotal += itemTotal;
+            totalVat += itemVat;
+            totalVatable += itemVatable;
         }
 
-        if (discountApplies) {
-            total *= 0.8;
-        }
-
-        if (vatExempt) {
-            vat = 0;
-            vatable = 0;
-        } else {
-            vat = total * 12.0 / 112.0;
-            vatable = total - vat;
-        }
-
+        double payment, change;
+        
         cout.setf(ios::fixed);
         cout.precision(2);
 
-        cout << "Total Amount: ₱" << total << endl;
+        cout << "Total Amount: ₱" << grandTotal << endl;
         cout << "Enter payment: ₱";
-
         cin >> payment;
 
-        while (payment < total) {
+        while (payment < grandTotal) {
             cout << "Insufficient payment! Enter again: ₱";
             cin >> payment;
         }
         
-        change = payment - total;
+        change = payment - grandTotal;
 
-        selectedProduct.stock -= quantity;
+        for (const auto& item : cart) {
+            for (auto& p : products) {
+                if (p.id == item.product.id) {
+                    p.stock -= item.quantity;
+                }
+            }
+        }
         saveProducts("products.csv", products);
 
+        // ITEMIZED RECEIPT
         printHeader("RECEIPT");
-        cout << "Product:  " << selectedProduct.name << endl;
-        cout << "Price:    ₱" << selectedProduct.price << endl;
-        cout << "Quantity: " << quantity << endl;
-        cout << "Total:    ₱" << total << endl;
-        cout << "VATable   ₱" << vatable << endl;
-        cout << "VAT       ₱" << vat << endl;
+        cout << "Products Ordered:" << endl;
+        for (const auto& item : cart) {
+            cout << " - " << item.product.name << " (Qty: " << item.quantity << ") @ ₱" << item.product.price << " each" << endl;
+        }
+        cout << "----------------------------------------" << endl;
+        cout << "Total:    ₱" << grandTotal << endl;
+        cout << "VATable   ₱" << totalVatable << endl;
+        cout << "VAT       ₱" << totalVat << endl;
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
         printHeader("THANK YOU!");

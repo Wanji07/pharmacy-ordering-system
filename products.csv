@@ -1,25 +1,25 @@
 ID,Name,Category,Subcategory,Price,Stock
-1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,87
+1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,67
 2,Ibuprofen 200mg,Medicines & Health Products,Pain & Fever Medicine,8,100
 3,Mefenamic Acid 500mg,Medicines & Health Products,Pain & Fever Medicine,10,100
 4,Bioflu Tablet,Medicines & Health Products,Cough & Cold Medicine,10,100
 5,Tuseran Forte,Medicines & Health Products,Cough & Cold Medicine,12,100
-6,Carbocisteine 500mg,Medicines & Health Products,Cough & Cold Medicine,15,100
+6,Carbocisteine 500mg,Medicines & Health Products,Cough & Cold Medicine,15,88
 7,Vitamin C 500mg,Medicines & Health Products,Vitamins & Supplements,6,100
 8,Vitamin B-Complex,Medicines & Health Products,Vitamins & Supplements,8,100
 9,Vitamin D3,Medicines & Health Products,Vitamins & Supplements,10,100
 10,Shampoo,Over-the-Counter & Personal Care Products,Personal Care,120,100
 11,Body Wash,Over-the-Counter & Personal Care Products,Personal Care,150,100
 12,Toothpaste,Over-the-Counter & Personal Care Products,Personal Care,90,100
-13,Hand Sanitizer,Over-the-Counter & Personal Care Products,Hygiene Products,80,100
-14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,99
-15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,100
+13,Hand Sanitizer,Over-the-Counter & Personal Care Products,Hygiene Products,80,99
+14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,96
+15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,99
 16,Digital Thermometer,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,150,100
 17,Face Mask Pack,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,80,100
 18,Hot/Cold Compress,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,120,100
 19,Digital Blood Pressure Monitor,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1500,100
 20,Digital Pulse Oximeter,Pharmacy Equipment & Supplies,Medical Monitoring Devices,800,100
-21,Digital Weighing Scale,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1200,100
+21,Digital Weighing Scale,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1200,99
 22,Elastic Knee Support,Pharmacy Equipment & Supplies,Medical Support Products,350,100
 23,Wrist Support,Pharmacy Equipment & Supplies,Medical Support Products,300,100
 24,Ankle Support,Pharmacy Equipment & Supplies,Medical Support Products,350,100
