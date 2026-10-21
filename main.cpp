@@ -117,6 +117,41 @@ void saveProducts(string filename, const vector<Product>& products) {
 
 }
 
+// AUTHENTICATE ADMIN FUNCTION
+
+bool authenticateAdmin() {
+    ifstream passwordFile("admin_password.txt");
+
+    if (!passwordFile.is_open()) {
+        cout << "Unable to open the administrator password file." << endl;
+        return false;
+    }
+
+    string storedPassword;
+    getline(passwordFile, storedPassword);
+    passwordFile.close();
+
+    const int maxAttempts = 3;
+
+    for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+        string enteredPassword;
+
+        cout << "Enter administrator password: ";
+        cin >> enteredPassword;
+
+        if (enteredPassword == storedPassword) {
+            cout << "Access granted." << endl;
+            return true;
+        }
+
+        cout << "Incorrect password." << endl;
+    }
+
+    cout << "Access denied." << endl;
+    return false;
+
+}
+
 // CATEGORY FUNCTION
 
 int selectCategory() {
@@ -125,6 +160,8 @@ int selectCategory() {
     cout << "1.) Medicines & Health Products" << endl;
     cout << "2.) Over-the-Counter & Personal Care Products" << endl;
     cout << "3.) Pharmacy Equipment & Supplies" << endl;
+    cout << "4.) Digestive Health" << endl;
+    cout << "5.) Eye and Ear Care" << endl;
     
     int categoryRes;
     cin >> categoryRes;
@@ -153,6 +190,18 @@ int selectSubCategory(int categoryRes) {
             cout << "1.) Medical Monitoring Devices" << endl;
             cout << "2.) Medical Support Products" << endl;
             cout << "3.) Healthcare Supplies" << endl;
+        break;
+        case 4:
+            printHeader("DIGESTIVE HEALTH");
+            cout << "1.) Antacids" << endl;
+            cout << "2.) Anti-Diarrheal" << endl;
+            cout << "3.) Digestive Relief" << endl;
+        break;
+        case 5:
+            printHeader("EYE AND EAR CARE");
+            cout << "1.) Eye Drops" << endl;
+            cout << "2.) Eye Hygiene" << endl;
+            cout << "3.) Ear Care" << endl;
         break;
         default:
             cout << "Invalid input!" << endl;
@@ -236,6 +285,52 @@ int selectProduct(int categoryRes, int subCategoryRes) {
             default:
                 cout << "Invalid input!" << endl;
         }
+    } else if (categoryRes == 4) {
+        switch (subCategoryRes) {
+            case 1:
+                printHeader("ANTACIDS");
+                cout << "1.) Calcium Carbonate Tablets - ₱8.00" << endl;
+                cout << "2.) Aluminum Hydroxide Suspension - ₱65.00" << endl;
+                cout << "3.) Magnesium Hydroxide Tablets - ₱12.00" << endl;
+                break;
+            case 2:
+                printHeader("ANTI-DIARRHEAL");
+                cout << "1.) Loperamide 2mg - ₱6.00" << endl;
+                cout << "2.) Oral Rehydration Salts - ₱15.00" << endl;
+                cout << "3.) Bismuth Subsalicylate - ₱75.00" << endl;
+                break;
+            case 3:
+                printHeader("DIGESTIVE RELIEF");
+                cout << "1.) Simethicone 80mg - ₱9.00" << endl;
+                cout << "2.) Digestive Enzyme Capsules - ₱120.00" << endl;
+                cout << "3.) Probiotic Capsules - ₱150.00" << endl;
+                break;
+            default:
+                cout << "Invalid input!" << endl;
+        }
+    } else if (categoryRes == 5) {
+        switch (subCategoryRes) {
+            case 1:
+                printHeader("EYE DROPS");
+                cout << "1.) Artificial Tears - ₱150.00" << endl;
+                cout << "2.) Lubricating Eye Drops - ₱180.00" << endl;
+                cout << "3.) Allergy Eye Drops - ₱220.00" << endl;
+                break;
+            case 2:
+                printHeader("EYE HYGIENE");
+                cout << "1.) Sterile Eye Wash - ₱130.00" << endl;
+                cout << "2.) Eye Compress - ₱100.00" << endl;
+                cout << "3.) Eyelid Cleansing Wipes - ₱160.00" << endl;
+                break;
+            case 3:
+                printHeader("EAR CARE");
+                cout << "1.) Ear-Cleaning Drops - ₱110.00" << endl;
+                cout << "2.) Ear Syringe - ₱95.00" << endl;
+                cout << "3.) Earplugs - ₱80.00" << endl;
+                break;
+            default:
+                cout << "Invalid input!" << endl;
+        }
     } else {
         cout << "Invalid category!" << endl;
         return 0;
@@ -269,6 +364,10 @@ int main() {
         break;
 
         case 2:
+            if (!authenticateAdmin()) {
+                break;
+            }
+
             printHeader("ADMINISTRATOR MENU");
             
             cout << "Good day, admin! Choose a product to modify its stock and prices." << endl;
@@ -290,7 +389,7 @@ int main() {
 
     // ADMINISTRATOR BACKEND
 
-    if (menuRes == 2 && categoryRes >= 1 && categoryRes <= 3 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
+    if (menuRes == 2 && categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
 
         int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
         Product& selectedProduct = products[selectedIndex];
@@ -322,7 +421,7 @@ int main() {
 
     // CALCULATIONS
 
-    if (menuRes == 1 && categoryRes >= 1 && categoryRes <= 3 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
+    if (menuRes == 1 && categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
     
         int quantity;
         double price, total, payment, change, vat, vatable;
@@ -368,7 +467,11 @@ int main() {
             cout << "Invalid input!" << endl;
             break;
         }
-        set<int> noVatExemptionIds = {10, 11, 12, 13, 14, 15};
+        set<int> noVatExemptionIds = {
+            10, 11, 12, 13, 14, 15,
+            28, 29, 30, 31, 32, 33, 34, 35, 36,
+            37, 38, 39, 40, 41, 42, 43, 44, 45
+        };
 
         bool discountApplies = customerEligible;
         bool vatExempt = customerEligible && noVatExemptionIds.count(selectedProduct.id) == 0;
