@@ -90,10 +90,10 @@ int main() {
     int adminMenuRes, stockRes;
     double priceRes;
 
-    cout << "────────────── PHARMACY SYSTEM OVERVIEW ──────────────" << endl;
+    cout << "====== PHARMACY SYSTEM OVERVIEW ======" << endl;
     cout << endl;
 
-    cout << "────────────── MAIN MENU ──────────────" << endl;
+    cout << "====== MAIN MENU ======" << endl;
     cout << "1.) Order Products" << endl;
     cout << "2.) Enter as Administrator" << endl;
     cout << "3.) Exit" << endl;
@@ -102,38 +102,38 @@ int main() {
     switch (menuRes) {
 
         case 1:
-            cout << "────────────── CATEGORIES ──────────────" << endl;
+            cout << "====== CATEGORIES ======" << endl;
             cout << "1.) Medicines & Health Products" << endl;
             cout << "2.) Over-the-Counter & Personal Care Products" << endl;
             cout << "3.) Pharmacy Equipment & Supplies" << endl;
             cin >> categoryRes;
             switch (categoryRes) {
                 case 1:
-                    cout << "────────────── MEDICINES & HEALTH PRODUCTS ──────────────" << endl;
+                    cout << "====== MEDICINES & HEALTH PRODUCTS ======" << endl;
                     cout << "1.) Pain & Fever Medicine" << endl;
                     cout << "2.) Cough & Cold Medicine" << endl;
                     cout << "3.) Vitamins & Supplements" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── PAIN & FEVER MEDICINE ──────────────" << endl;
-                            cout << "1.) Paracetamol 500mg — ₱5.00" << endl;
-                            cout << "2.) Ibuprofen 200mg — ₱8.00" << endl;
-                            cout << "3.) Mefenamic Acid 500mg — ₱10.00" << endl;
+                            cout << "====== PAIN & FEVER MEDICINE ======" << endl;
+                            cout << "1.) Paracetamol 500mg - ₱5.00" << endl;
+                            cout << "2.) Ibuprofen 200mg - ₱8.00" << endl;
+                            cout << "3.) Mefenamic Acid 500mg - ₱10.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── COUGH & COLD MEDICINE ──────────────" << endl;
-                            cout << "1.) Bioflu Tablet — ₱10.00" << endl;
-                            cout << "2.) Tuseran Forte — ₱12.00" << endl;
-                            cout << "3.) Carbocisteine 500mg — ₱15.00" << endl;
+                            cout << "====== COUGH & COLD MEDICINE ======" << endl;
+                            cout << "1.) Bioflu Tablet - ₱10.00" << endl;
+                            cout << "2.) Tuseran Forte - ₱12.00" << endl;
+                            cout << "3.) Carbocisteine 500mg - ₱15.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── VITAMINS & SUPPLEMENTS ──────────────" << endl;
-                            cout << "1.) Vitamin C 500mg — ₱6.00" << endl;
-                            cout << "2.) Vitamin B-Complex — ₱8.00" << endl;
-                            cout << "3.) Vitamin D3 — ₱10.00" << endl;
+                            cout << "====== VITAMINS & SUPPLEMENTS ======" << endl;
+                            cout << "1.) Vitamin C 500mg - ₱6.00" << endl;
+                            cout << "2.) Vitamin B-Complex - ₱8.00" << endl;
+                            cout << "3.) Vitamin D3 - ₱10.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -141,31 +141,31 @@ int main() {
                             }
                             break;
                 case 2:
-                    cout << "────────────── OVER-THE-COUNTER & PERSONAL CARE ──────────────" << endl;
+                    cout << "====== OVER-THE-COUNTER & PERSONAL CARE ======" << endl;
                     cout << "1.) Personal Care" << endl;
                     cout << "2.) Hygiene Products" << endl;
                     cout << "3.) Health & Wellness Accessories" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── PERSONAL CARE ──────────────" << endl;
-                            cout << "1.) Shampoo — ₱120.00" << endl;
-                            cout << "2.) Body Wash — ₱150.00" << endl;
-                            cout << "3.) Toothpaste — ₱90.00" << endl;
+                            cout << "====== PERSONAL CARE ======" << endl;
+                            cout << "1.) Shampoo - ₱120.00" << endl;
+                            cout << "2.) Body Wash - ₱150.00" << endl;
+                            cout << "3.) Toothpaste - ₱90.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── HYGIENE PRODUCTS ──────────────" << endl;
-                            cout << "1.) Hand Sanitizer — ₱80.00" << endl;
-                            cout << "2.) Wet Wipes — ₱70.00" << endl;
-                            cout << "3.) Facial Tissue — ₱60.00" << endl;
+                            cout << "====== HYGIENE PRODUCTS ======" << endl;
+                            cout << "1.) Hand Sanitizer - ₱80.00" << endl;
+                            cout << "2.) Wet Wipes - ₱70.00" << endl;
+                            cout << "3.) Facial Tissue - ₱60.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── HEALTH & WELLNESS ACCESSORIES ──────────────" << endl;
-                            cout << "1.) Digital Thermometer — ₱150.00" << endl;
-                            cout << "2.) Face Mask Pack — ₱80.00" << endl;
-                            cout << "3.) Hot/Cold Compress — ₱120.00" << endl;
+                            cout << "====== HEALTH & WELLNESS ACCESSORIES ======" << endl;
+                            cout << "1.) Digital Thermometer - ₱150.00" << endl;
+                            cout << "2.) Face Mask Pack - ₱80.00" << endl;
+                            cout << "3.) Hot/Cold Compress - ₱120.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -173,31 +173,31 @@ int main() {
                     }
                     break;
                 case 3:
-                    cout << "────────────── PHARMACY EQUIPMENT & SUPPLIES ──────────────" << endl;
+                    cout << "====== PHARMACY EQUIPMENT & SUPPLIES ======" << endl;
                     cout << "1.) Medical Monitoring Devices" << endl;
                     cout << "2.) Medical Support Products" << endl;
                     cout << "3.) Healthcare Supplies" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── MEDICAL MONITORING DEVICES ──────────────" << endl;
-                            cout << "1.) Digital Blood Pressure Monitor — ₱1,500.00" << endl;
-                            cout << "2.) Digital Pulse Oximeter — ₱800.00" << endl;
-                            cout << "3.) Digital Weighing Scale — ₱1,200.00" << endl;
+                            cout << "====== MEDICAL MONITORING DEVICES ======" << endl;
+                            cout << "1.) Digital Blood Pressure Monitor - ₱1,500.00" << endl;
+                            cout << "2.) Digital Pulse Oximeter - ₱800.00" << endl;
+                            cout << "3.) Digital Weighing Scale - ₱1,200.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── MEDICAL SUPPORT PRODUCTS ──────────────" << endl;
-                            cout << "1.) Elastic Knee Support — ₱350.00" << endl;
-                            cout << "2.) Wrist Support — ₱300.00" << endl;
-                            cout << "3.) Ankle Support — ₱350.00" << endl;
+                            cout << "====== MEDICAL SUPPORT PRODUCTS ======" << endl;
+                            cout << "1.) Elastic Knee Support - ₱350.00" << endl;
+                            cout << "2.) Wrist Support - ₱300.00" << endl;
+                            cout << "3.) Ankle Support - ₱350.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── HEALTHCARE SUPPLIES ──────────────" << endl;
-                            cout << "1.) Disposable Syringes — ₱20.00" << endl;
-                            cout << "2.) Disposable Gloves — ₱100.00" << endl;
-                            cout << "3.) Cotton Applicator Sticks — ₱50.00" << endl;
+                            cout << "====== HEALTHCARE SUPPLIES ======" << endl;
+                            cout << "1.) Disposable Syringes - ₱20.00" << endl;
+                            cout << "2.) Disposable Gloves - ₱100.00" << endl;
+                            cout << "3.) Cotton Applicator Sticks - ₱50.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -209,10 +209,10 @@ int main() {
             }
             break;
         case 2:
-            cout << "────────────── ADMINISTRATOR MENU ──────────────" << endl;
+            cout << "====== ADMINISTRATOR MENU ======" << endl;
             
             cout << "Good day, admin! Choose a product to modify its stock and prices." << endl;
-            cout << "────────────── CATEGORIES ──────────────" << endl;
+            cout << "====== CATEGORIES ======" << endl;
             cout << "1.) Medicines & Health Products" << endl;
             cout << "2.) Over-the-Counter & Personal Care Products" << endl;
             cout << "3.) Pharmacy Equipment & Supplies" << endl;
@@ -220,31 +220,31 @@ int main() {
 
             switch (categoryRes) {
                 case 1:
-                    cout << "────────────── MEDICINES & HEALTH PRODUCTS ──────────────" << endl;
+                    cout << "====== MEDICINES & HEALTH PRODUCTS ======" << endl;
                     cout << "1.) Pain & Fever Medicine" << endl;
                     cout << "2.) Cough & Cold Medicine" << endl;
                     cout << "3.) Vitamins & Supplements" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── PAIN & FEVER MEDICINE ──────────────" << endl;
-                            cout << "1.) Paracetamol 500mg — ₱5.00" << endl;
-                            cout << "2.) Ibuprofen 200mg — ₱8.00" << endl;
-                            cout << "3.) Mefenamic Acid 500mg — ₱10.00" << endl;
+                            cout << "====== PAIN & FEVER MEDICINE ======" << endl;
+                            cout << "1.) Paracetamol 500mg - ₱5.00" << endl;
+                            cout << "2.) Ibuprofen 200mg - ₱8.00" << endl;
+                            cout << "3.) Mefenamic Acid 500mg - ₱10.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── COUGH & COLD MEDICINE ──────────────" << endl;
-                            cout << "1.) Bioflu Tablet — ₱10.00" << endl;
-                            cout << "2.) Tuseran Forte — ₱12.00" << endl;
-                            cout << "3.) Carbocisteine 500mg — ₱15.00" << endl;
+                            cout << "====== COUGH & COLD MEDICINE ======" << endl;
+                            cout << "1.) Bioflu Tablet - ₱10.00" << endl;
+                            cout << "2.) Tuseran Forte - ₱12.00" << endl;
+                            cout << "3.) Carbocisteine 500mg - ₱15.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── VITAMINS & SUPPLEMENTS ──────────────" << endl;
-                            cout << "1.) Vitamin C 500mg — ₱6.00" << endl;
-                            cout << "2.) Vitamin B-Complex — ₱8.00" << endl;
-                            cout << "3.) Vitamin D3 — ₱10.00" << endl;
+                            cout << "====== VITAMINS & SUPPLEMENTS ======" << endl;
+                            cout << "1.) Vitamin C 500mg - ₱6.00" << endl;
+                            cout << "2.) Vitamin B-Complex - ₱8.00" << endl;
+                            cout << "3.) Vitamin D3 - ₱10.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -252,31 +252,31 @@ int main() {
                     }
                     break;
                 case 2:
-                    cout << "────────────── OVER-THE-COUNTER & PERSONAL CARE ──────────────" << endl;
+                    cout << "====== OVER-THE-COUNTER & PERSONAL CARE ======" << endl;
                     cout << "1.) Personal Care" << endl;
                     cout << "2.) Hygiene Products" << endl;
                     cout << "3.) Health & Wellness Accessories" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── PERSONAL CARE ──────────────" << endl;
-                            cout << "1.) Shampoo — ₱120.00" << endl;
-                            cout << "2.) Body Wash — ₱150.00" << endl;
-                            cout << "3.) Toothpaste — ₱90.00" << endl;
+                            cout << "====== PERSONAL CARE ======" << endl;
+                            cout << "1.) Shampoo - ₱120.00" << endl;
+                            cout << "2.) Body Wash - ₱150.00" << endl;
+                            cout << "3.) Toothpaste - ₱90.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── HYGIENE PRODUCTS ──────────────" << endl;
-                            cout << "1.) Hand Sanitizer — ₱80.00" << endl;
-                            cout << "2.) Wet Wipes — ₱70.00" << endl;
-                            cout << "3.) Facial Tissue — ₱60.00" << endl;
+                            cout << "====== HYGIENE PRODUCTS ======" << endl;
+                            cout << "1.) Hand Sanitizer - ₱80.00" << endl;
+                            cout << "2.) Wet Wipes - ₱70.00" << endl;
+                            cout << "3.) Facial Tissue - ₱60.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── HEALTH & WELLNESS ACCESSORIES ──────────────" << endl;
-                            cout << "1.) Digital Thermometer — ₱150.00" << endl;
-                            cout << "2.) Face Mask Pack — ₱80.00" << endl;
-                            cout << "3.) Hot/Cold Compress — ₱120.00" << endl;
+                            cout << "====== HEALTH & WELLNESS ACCESSORIES ======" << endl;
+                            cout << "1.) Digital Thermometer - ₱150.00" << endl;
+                            cout << "2.) Face Mask Pack - ₱80.00" << endl;
+                            cout << "3.) Hot/Cold Compress - ₱120.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -284,31 +284,31 @@ int main() {
                     }
                     break;
                 case 3:
-                    cout << "────────────── PHARMACY EQUIPMENT & SUPPLIES ──────────────" << endl;
+                    cout << "====== PHARMACY EQUIPMENT & SUPPLIES ======" << endl;
                     cout << "1.) Medical Monitoring Devices" << endl;
                     cout << "2.) Medical Support Products" << endl;
                     cout << "3.) Healthcare Supplies" << endl;
                     cin >> subCategoryRes;
                     switch (subCategoryRes) {
                         case 1:
-                            cout << "────────────── MEDICAL MONITORING DEVICES ──────────────" << endl;
-                            cout << "1.) Digital Blood Pressure Monitor — ₱1,500.00" << endl;
-                            cout << "2.) Digital Pulse Oximeter — ₱800.00" << endl;
-                            cout << "3.) Digital Weighing Scale — ₱1,200.00" << endl;
+                            cout << "====== MEDICAL MONITORING DEVICES ======" << endl;
+                            cout << "1.) Digital Blood Pressure Monitor - ₱1,500.00" << endl;
+                            cout << "2.) Digital Pulse Oximeter - ₱800.00" << endl;
+                            cout << "3.) Digital Weighing Scale - ₱1,200.00" << endl;
                             cin >> productRes;
                             break;
                         case 2:
-                            cout << "────────────── MEDICAL SUPPORT PRODUCTS ──────────────" << endl;
-                            cout << "1.) Elastic Knee Support — ₱350.00" << endl;
-                            cout << "2.) Wrist Support — ₱300.00" << endl;
-                            cout << "3.) Ankle Support — ₱350.00" << endl;
+                            cout << "====== MEDICAL SUPPORT PRODUCTS ======" << endl;
+                            cout << "1.) Elastic Knee Support - ₱350.00" << endl;
+                            cout << "2.) Wrist Support - ₱300.00" << endl;
+                            cout << "3.) Ankle Support - ₱350.00" << endl;
                             cin >> productRes;
                             break;
                         case 3:
-                            cout << "────────────── HEALTHCARE SUPPLIES ──────────────" << endl;
-                            cout << "1.) Disposable Syringes — ₱20.00" << endl;
-                            cout << "2.) Disposable Gloves — ₱100.00" << endl;
-                            cout << "3.) Cotton Applicator Sticks — ₱50.00" << endl;
+                            cout << "====== HEALTHCARE SUPPLIES ======" << endl;
+                            cout << "1.) Disposable Syringes - ₱20.00" << endl;
+                            cout << "2.) Disposable Gloves - ₱100.00" << endl;
+                            cout << "3.) Cotton Applicator Sticks - ₱50.00" << endl;
                             cin >> productRes;
                             break;
                         default:
@@ -336,7 +336,7 @@ int main() {
         int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
         Product& selectedProduct = products[selectedIndex];
 
-        cout << "────────────── ADMININISTRATOR OPERATIONS ──────────────" << endl;
+        cout << "====== ADMININISTRATOR OPERATIONS ======" << endl;
         cout << "1.) Change Product Price" << endl;
         cout << "2.) Change Product Stock Quantity" << endl;
         cin >> adminMenuRes;
@@ -381,7 +381,7 @@ int main() {
 
         price = selectedProduct.price;
         
-        cout << "────────────── PAYMENT ──────────────" << endl;
+        cout << "====== PAYMENT ======" << endl;
         cout << "Enter quantity: ";
         cin >> quantity;
 
@@ -390,7 +390,7 @@ int main() {
             cin >> quantity;
         }
 
-        cout << "────────────── DISCOUNT ──────────────" << endl;
+        cout << "====== DISCOUNT ======" << endl;
         cout << "Are you a senior citizen or PWD? (Y/N): ";
         cin >> discountRes;
 
@@ -437,7 +437,7 @@ int main() {
         selectedProduct.stock -= quantity;
         saveProducts("products.csv", products);
 
-        cout << "────────────── RECEIPT ──────────────" << endl;
+        cout << "====== RECEIPT ======" << endl;
         cout << "Product:  " << selectedProduct.name << endl;
         cout << "Price:    ₱" << selectedProduct.price << endl;
         cout << "Quantity: " << quantity << endl;
@@ -446,7 +446,7 @@ int main() {
         cout << "VAT       ₱" << vat << endl;
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
-        cout << "────────────── THANK YOU! ──────────────" << endl;
+        cout << "====== THANK YOU! ======" << endl;
     }
 
     return 0;
