@@ -1,5 +1,5 @@
 ID,Name,Category,Subcategory,Price,Stock
-1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,88
+1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,87
 2,Ibuprofen 200mg,Medicines & Health Products,Pain & Fever Medicine,8,100
 3,Mefenamic Acid 500mg,Medicines & Health Products,Pain & Fever Medicine,10,100
 4,Bioflu Tablet,Medicines & Health Products,Cough & Cold Medicine,10,100
@@ -12,7 +12,7 @@ ID,Name,Category,Subcategory,Price,Stock
 11,Body Wash,Over-the-Counter & Personal Care Products,Personal Care,150,100
 12,Toothpaste,Over-the-Counter & Personal Care Products,Personal Care,90,100
 13,Hand Sanitizer,Over-the-Counter & Personal Care Products,Hygiene Products,80,100
-14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,100
+14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,99
 15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,100
 16,Digital Thermometer,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,150,100
 17,Face Mask Pack,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,80,100
