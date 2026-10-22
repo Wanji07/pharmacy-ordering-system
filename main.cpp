@@ -168,6 +168,7 @@ bool authenticateAdmin() {
     }
 
     string storedPassword;
+
     getline(passwordFile, storedPassword);
     passwordFile.close();
 
@@ -210,6 +211,7 @@ int selectCategory() {
 }
 
 // SUBCATEGORY FUNCTION
+
 
 int selectSubCategory(int categoryRes) {
     switch (categoryRes) {
@@ -404,7 +406,8 @@ int main() {
             categoryRes = selectCategory();
             subCategoryRes = selectSubCategory(categoryRes);
             productRes = selectProduct(categoryRes, subCategoryRes);
-           if (categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
+           
+            if (categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
             
             // Each category has 3 subcategories with 3 products each.
             // Example: category 1, subcategory 2, product 3 gives index 5 (CSV ID 6).
@@ -432,11 +435,7 @@ int main() {
         cin >> looper;
         } while (looper == 'y' || looper == 'Y');
         break;
-        }
-
-
-
-        
+        }  
         case 2:
             if (!authenticateAdmin()) {
                 break;
@@ -562,7 +561,7 @@ int main() {
 
         double payment, change;
         
-1       cout.setf(ios::fixed);
+        cout.setf(ios::fixed);
         cout.precision(2);
 
         cout << "Total Amount: ₱" << grandTotal << endl;
