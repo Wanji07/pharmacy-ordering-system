@@ -1,25 +1,25 @@
-ID,Name,Category,Subcategory,Price,Stock
-1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,64
+﻿ID,Name,Category,Subcategory,Price,Stock
+1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,5,100
 2,Ibuprofen 200mg,Medicines & Health Products,Pain & Fever Medicine,8,100
 3,Mefenamic Acid 500mg,Medicines & Health Products,Pain & Fever Medicine,10,100
 4,Bioflu Tablet,Medicines & Health Products,Cough & Cold Medicine,10,100
 5,Tuseran Forte,Medicines & Health Products,Cough & Cold Medicine,12,100
-6,Carbocisteine 500mg,Medicines & Health Products,Cough & Cold Medicine,15,88
+6,Carbocisteine 500mg,Medicines & Health Products,Cough & Cold Medicine,15,100
 7,Vitamin C 500mg,Medicines & Health Products,Vitamins & Supplements,6,100
 8,Vitamin B-Complex,Medicines & Health Products,Vitamins & Supplements,8,100
 9,Vitamin D3,Medicines & Health Products,Vitamins & Supplements,10,100
 10,Shampoo,Over-the-Counter & Personal Care Products,Personal Care,120,100
 11,Body Wash,Over-the-Counter & Personal Care Products,Personal Care,150,100
 12,Toothpaste,Over-the-Counter & Personal Care Products,Personal Care,90,100
-13,Hand Sanitizer,Over-the-Counter & Personal Care Products,Hygiene Products,80,99
-14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,95
-15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,99
+13,Hand Sanitizer,Over-the-Counter & Personal Care Products,Hygiene Products,80,100
+14,Wet Wipes,Over-the-Counter & Personal Care Products,Hygiene Products,70,100
+15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,100
 16,Digital Thermometer,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,150,100
 17,Face Mask Pack,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,80,100
 18,Hot/Cold Compress,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,120,100
 19,Digital Blood Pressure Monitor,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1500,100
 20,Digital Pulse Oximeter,Pharmacy Equipment & Supplies,Medical Monitoring Devices,800,100
-21,Digital Weighing Scale,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1200,99
+21,Digital Weighing Scale,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1200,100
 22,Elastic Knee Support,Pharmacy Equipment & Supplies,Medical Support Products,350,100
 23,Wrist Support,Pharmacy Equipment & Supplies,Medical Support Products,300,100
 24,Ankle Support,Pharmacy Equipment & Supplies,Medical Support Products,350,100
@@ -33,14 +33,14 @@ ID,Name,Category,Subcategory,Price,Stock
 32,Oral Rehydration Salts,Digestive Health,Anti-Diarrheal,15,100
 33,Bismuth Subsalicylate,Digestive Health,Anti-Diarrheal,75,100
 34,Simethicone 80mg,Digestive Health,Digestive Relief,9,100
-35,Digestive Enzyme Capsules,Digestive Health,Digestive Relief,120,98
+35,Digestive Enzyme Capsules,Digestive Health,Digestive Relief,120,100
 36,Probiotic Capsules,Digestive Health,Digestive Relief,150,100
-37,Artificial Tears,Eye and Ear Care,Eye Drops,150,90
+37,Artificial Tears,Eye and Ear Care,Eye Drops,150,100
 38,Lubricating Eye Drops,Eye and Ear Care,Eye Drops,180,100
 39,Allergy Eye Drops,Eye and Ear Care,Eye Drops,220,100
 40,Sterile Eye Wash,Eye and Ear Care,Eye Hygiene,130,100
 41,Eye Compress,Eye and Ear Care,Eye Hygiene,100,100
-42,Eyelid Cleansing Wipes,Eye and Ear Care,Eye Hygiene,160,90
+42,Eyelid Cleansing Wipes,Eye and Ear Care,Eye Hygiene,160,100
 43,Ear-Cleaning Drops,Eye and Ear Care,Ear Care,110,100
 44,Ear Syringe,Eye and Ear Care,Ear Care,95,100
 45,Earplugs,Eye and Ear Care,Ear Care,80,100
