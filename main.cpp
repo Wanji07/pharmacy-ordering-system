@@ -32,7 +32,7 @@ struct CartItem {
 void printLine(int width) {
     cout << "+";
     for (int i = 0; i < width; i++) {
-        cout << "-";
+        cout << "=";
     }
     cout << "+" << endl;
 }
@@ -390,8 +390,15 @@ int main() {
     int adminMenuRes, stockRes;
     double priceRes;
 
-    printHeader("PHARMACY SYSTEM OVERVIEW");
-    cout << endl;
+    cout << R"(░██████████                      ░██                                ░██████                                    
+    ░██                          ░██                               ░██   ░██                                   
+    ░██     ░███████   ░███████  ░████████  ░████████   ░███████  ░██        ░██    ░██ ░██░████  ░███████     
+    ░██    ░██    ░██ ░██    ░██ ░██    ░██ ░██    ░██ ░██    ░██ ░██        ░██    ░██ ░███     ░██    ░██    
+    ░██    ░█████████ ░██        ░██    ░██ ░██    ░██ ░██    ░██ ░██        ░██    ░██ ░██      ░█████████    
+    ░██    ░██        ░██    ░██ ░██    ░██ ░██    ░██ ░██    ░██  ░██   ░██ ░██   ░███ ░██      ░██           
+    ░██     ░███████   ░███████  ░██    ░██ ░██    ░██  ░███████    ░██████   ░█████░██ ░██       ░███████     
+                                                                                                               
+                                                                                                               )" << endl;
 
     printHeader("MAIN MENU");
     cout << "1.) Order Products" << endl;
