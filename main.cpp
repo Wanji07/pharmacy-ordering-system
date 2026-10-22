@@ -1,9 +1,13 @@
+#ifdef _WIN32
+#define NOMINMAX
+#include <windows.h>
+#endif
 #include <iostream>
 #include <cstdlib> 
 #include <algorithm>
 #include <sstream>
 #include <string>
-
+#include <limits>
  
 // CSV libraries
 #include <fstream>
@@ -18,6 +22,36 @@
 #include <ctime>
 
 using namespace std;
+// SAFE INPUT HELPERS
+int readInt() {
+    int value;
+    while (!(cin >> value)) {
+        if (cin.eof()) {
+            cout << endl << "Input ended. Exiting." << endl;
+            exit(EXIT_FAILURE);
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Please enter a number: ";
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    return value;
+}
+
+double readDouble() {
+    double value;
+    while (!(cin >> value)) {
+        if (cin.eof()) {
+            cout << endl << "Input ended. Exiting." << endl;
+            exit(EXIT_FAILURE);
+        }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input! Please enter a number: ";
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    return value;
+}
  
 struct Product { 
     int id;
@@ -212,7 +246,7 @@ int selectCategory() {
     cout << "5.) Eye and Ear Care" << endl;
     
     int categoryRes;
-    cin >> categoryRes;
+    categoryRes = readInt();
  
     return categoryRes;
 }
@@ -257,7 +291,7 @@ int selectSubCategory(int categoryRes) {
     }
  
     int subCategoryRes;
-    cin >> subCategoryRes;
+    subCategoryRes = readInt();
     return subCategoryRes;
 }
  
@@ -277,7 +311,7 @@ int selectProduct(int categoryRes, int subCategoryRes, const vector<Product>& pr
     }
 
     int productRes;
-    cin >> productRes;
+    productRes = readInt();
     return productRes;
 }
  
@@ -291,11 +325,11 @@ string selectPaymentMethod() {
     cout << "1.) Cash" << endl;
     cout << "2.) E-Wallet" << endl;
     cout << "3.) Bank" << endl;
-    cin >> methodRes;
+    methodRes = readInt();
  
     while (methodRes < 1 || methodRes > 3) {
         cout << "Invalid input! Enter again: ";
-        cin >> methodRes;
+        methodRes = readInt();
     }
  
     switch (methodRes) {
@@ -306,11 +340,11 @@ string selectPaymentMethod() {
             cout << "1.) GCash" << endl;
             cout << "2.) MariBank" << endl;
             cout << "3.) GoTyme" << endl;
-            cin >> providerRes;
+            providerRes = readInt();
  
             while (providerRes < 1 || providerRes > 3) {
                 cout << "Invalid input! Enter again: ";
-                cin >> providerRes;
+                providerRes = readInt();
             }
  
             if (providerRes == 1) return "E-Wallet - GCash";
@@ -321,11 +355,11 @@ string selectPaymentMethod() {
             cout << "1.) BDO" << endl;
             cout << "2.) BPI" << endl;
             cout << "3.) China Bank" << endl;
-            cin >> providerRes;
+            providerRes = readInt();
  
             while (providerRes < 1 || providerRes > 3) {
                 cout << "Invalid input! Enter again: ";
-                cin >> providerRes;
+                providerRes = readInt();
             }
  
             if (providerRes == 1) return "Bank - BDO";
@@ -335,6 +369,9 @@ string selectPaymentMethod() {
 }
  
 int main() {
+    #ifdef _WIN32
+        SetConsoleOutputCP(CP_UTF8);
+    #endif
     vector<CartItem> cart; //Cart vector load in int main so it can be accessed from the switch and receipt at the bottom
     vector<Product> products = loadProducts("products.csv"); //same with this one
     int menuRes, categoryRes, subCategoryRes, productRes;
@@ -356,7 +393,7 @@ int main() {
     cout << "1.) Order Products" << endl;
     cout << "2.) Enter as Administrator" << endl;
     cout << "3.) Exit" << endl;
-    cin >> menuRes;
+    menuRes = readInt();
  
     switch (menuRes) {
         case 1: {
@@ -373,19 +410,38 @@ int main() {
             int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
             Product& selectedProduct = products[selectedIndex];
  
-            int quantity;
-            cout << "You selected: " << selectedProduct.name << endl;
-            cout << "Available Stock: " << selectedProduct.stock << endl;
-            cout << "Enter quantity: ";
-            cin >> quantity;
- 
-            while (quantity < 1 || quantity > selectedProduct.stock) {
-                cout << "Invalid quantity or insufficient stock! Enter again: ";
-                cin >> quantity;
+            int inCart = 0;
+            for (const auto& item : cart) {
+                if (item.product.id == selectedProduct.id) inCart += item.quantity;
             }
-            cart.push_back({selectedProduct, quantity});
+            int available = selectedProduct.stock - inCart;
+
+            int quantity = 0;
+            cout << "You selected: " << selectedProduct.name << endl;
+            if (available < 1) {
+                cout << "Sorry, no more stock available for this product." << endl;
+            } else {
+                cout << "Available Stock: " << available << endl;
+                cout << "Enter quantity: ";
+                quantity = readInt();
+
+                while (quantity < 1 || quantity > available) {
+                    cout << "Invalid quantity or insufficient stock! Enter again: ";
+                    quantity = readInt();
+                }
+
+                bool found = false;
+                for (auto& item : cart) {
+                    if (item.product.id == selectedProduct.id) {
+                        item.quantity += quantity;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) cart.push_back({selectedProduct, quantity});
+            }
  
-            cout << "Successfully added " << quantity << "x " << selectedProduct.name << " to your cart!" << endl;
+            if (quantity > 0) cout << "Successfully added " << quantity << "x " << selectedProduct.name << " to your cart!" << endl;
  
         } else {
             cout << "Invalid selection!" << endl;
@@ -405,7 +461,7 @@ int main() {
             cout << "Good day, admin! What would you like to change?" << endl;
             cout << "1.) Change Product Price" << endl;
             cout << "2.) Change Product Stock Quantity" << endl;
-            cin >> adminMenuRes;
+            adminMenuRes = readInt();
  
             if (adminMenuRes != 1 && adminMenuRes != 2) {
                 cout << "Invalid input!" << endl;
@@ -440,14 +496,14 @@ int main() {
         switch (adminMenuRes) {
             case 1:
                 cout << "Enter the new Product price for: " << selectedProduct.name << endl;
-                cin >> priceRes;
+                priceRes = readDouble();
                 selectedProduct.price = priceRes;
                 cout << "The new Product price for: " << selectedProduct.name << " is " << priceRes << "!" << endl;
                 saveProducts("products.csv", products);
             break;
             case 2:
                 cout << "Enter the new Product stock for: " << selectedProduct.name << endl;
-                cin >> stockRes;
+                stockRes = readInt();
                 selectedProduct.stock = stockRes;
                 cout << "The new Product stock for: " << selectedProduct.name << " is " << stockRes << "!" << endl;
                 saveProducts("products.csv", products);
@@ -540,11 +596,11 @@ int main() {
  
         if (paymentMethod == "Cash") {
             cout << "Enter payment (0 to cancel order): ₱";
-            cin >> payment;
+            payment = readDouble();
  
             while (payment != 0 && payment < grandTotal) {
                 cout << "Insufficient payment! Enter again (0 to cancel order): ₱";
-                cin >> payment;
+                payment = readDouble();
             }
  
             if (payment == 0) {
