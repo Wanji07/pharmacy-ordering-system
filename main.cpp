@@ -1,8 +1,11 @@
 #include <iostream>
 #include <cstdlib> 
 #include <algorithm>
+#include <cctype>
+#include <iomanip>
 #include <sstream>
 #include <string>
+#include <ctime>
 
 // CSV libraries
 #include <fstream>
@@ -155,6 +158,7 @@ void saveTransactions(const string& filename, const vector<CartItem>& cartItems,
     file.close();
 
 }
+
 
 
 // AUTHENTICATE ADMIN FUNCTION
@@ -389,6 +393,7 @@ int main() {
     int menuRes, categoryRes, subCategoryRes, productRes;
     int adminMenuRes, stockRes;
     double priceRes;
+    string referenceNumber;
 
     cout << R"(  
     ░██████████                      ░██                                ░██████                                    
@@ -413,7 +418,7 @@ int main() {
             categoryRes = selectCategory();
             subCategoryRes = selectSubCategory(categoryRes);
             productRes = selectProduct(categoryRes, subCategoryRes);
-           
+            
             if (categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
             
             // Each category has 3 subcategories with 3 products each.
@@ -450,7 +455,17 @@ int main() {
 
             printHeader("ADMINISTRATOR MENU");
             
-            cout << "Good day, admin! Choose a product to modify its stock and prices." << endl;
+            cout << "Good day, admin! What would you like to change?" << endl;
+            cout << "1.) Change Product Price" << endl;
+            cout << "2.) Change Product Stock Quantity" << endl;
+            cin >> adminMenuRes;
+
+            if (adminMenuRes != 1 && adminMenuRes != 2) {
+                cout << "Invalid input!" << endl;
+                break;
+            }
+
+            cout << "Choose a product to modify." << endl;
             categoryRes = selectCategory();
             subCategoryRes = selectSubCategory(categoryRes);
             productRes = selectProduct(categoryRes, subCategoryRes);
@@ -474,9 +489,6 @@ int main() {
         Product& selectedProduct = products[selectedIndex];
 
         printHeader("ADMININISTRATOR OPERATIONS");
-        cout << "1.) Change Product Price" << endl;
-        cout << "2.) Change Product Stock Quantity" << endl;
-        cin >> adminMenuRes;
 
         switch (adminMenuRes) {
             case 1:
@@ -582,6 +594,20 @@ int main() {
         
         change = payment - grandTotal;
 
+        // REFERENCE NUMBER 
+
+        // Local time from PC
+        time_t currentTime = time(nullptr);
+        tm* localTime = localtime(&currentTime);
+        
+        stringstream referenceStream;
+
+        referenceStream << "PH-"
+                        << put_time(localTime, "%Y%m%d-%H%M%S");
+
+        referenceNumber = referenceStream.str();
+
+
         for (const auto& item : cart) {
             for (auto& p : products) {
                 if (p.id == item.product.id) {
@@ -591,7 +617,6 @@ int main() {
         }
         saveProducts("products.csv", products);
 
-        const string referenceNumber = "T2026-001";
         saveTransactions("transactions.csv", cart, referenceNumber, totalVatable,
             totalVat, grandTotal, payment, change);
 
@@ -608,8 +633,6 @@ int main() {
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
         cout << "Reference Number: " << referenceNumber << endl;
-        saveTransactions("transactions.csv", cart, referenceNumber, totalVatable,
-            totalVat, grandTotal, payment, change);
         printHeader("THANK YOU!");
     }
 
