@@ -54,7 +54,7 @@ void printHeader(const string& title) {
     printLine(width);
 }
 
-// LOAD CSV
+// LOAD CSV FOR PRODUCTS
 
 vector<Product> loadProducts(string filename) {
     
@@ -121,6 +121,39 @@ void saveProducts(string filename, const vector<Product>& products) {
     file.close();
 
 }
+
+// SAVE TRANSACTION CSV
+void saveTransactions(const string& filename, const vector<CartItem>& cartItems,
+    const string& referenceNumber, double subtotal, double vat, double total,
+    double payment, double change) {
+    ifstream existingFile(filename);
+    bool writeHeader = !existingFile || existingFile.peek() == ifstream::traits_type::eof();
+    existingFile.close();
+
+    ofstream file(filename, ios::app);
+
+    if (!file.is_open()) {
+        cout << "Unable to open the CSV file for writing." << endl;
+        return;
+    }
+
+    file.setf(ios::fixed);
+    file.precision(2);
+
+    if (writeHeader) {
+        file << "Reference Number,Product ID,Product Name,Quantity,Unit Price,Subtotal,VAT,Total,Payment,Change\n";
+    }
+
+    for (const CartItem& item : cartItems) {
+        file << referenceNumber << "," << item.product.id << "," << item.product.name << ","
+             << item.quantity << "," << item.product.price << "," << subtotal << ","
+             << vat << "," << total << "," << payment << "," << change << endl;
+    }
+
+    file.close();
+
+}
+
 
 // AUTHENTICATE ADMIN FUNCTION
 
@@ -371,13 +404,8 @@ int main() {
             productRes = selectProduct(categoryRes, subCategoryRes);
            if (categoryRes >= 1 && categoryRes <= 5 && subCategoryRes >= 1 && subCategoryRes <= 3 && productRes >= 1 && productRes <= 3) {
             
-            //Calculate Index inside of the case statement to get product ID then add to cart 
-             // ^^ Based on the answer of this formula, it will be the ID of the CSV itself.
-            // ex. category = 1, subcategory = 2, product = 3
-            // answer will be: 0 + 3 + 2 = (ID = 4 / due to zero-based indexing)
-
-            // 1 category -> 3 subcategories -> 3 products
-            // 1 subcategory -> 3 products
+            // Each category has 3 subcategories with 3 products each.
+            // Example: category 1, subcategory 2, product 3 gives index 5 (CSV ID 6).
             int selectedIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3 + (productRes - 1);
             Product& selectedProduct = products[selectedIndex];
 
@@ -532,7 +560,7 @@ int main() {
 
         double payment, change;
         
-        cout.setf(ios::fixed);
+1        cout.setf(ios::fixed);
         cout.precision(2);
 
         cout << "Total Amount: ₱" << grandTotal << endl;
@@ -555,6 +583,10 @@ int main() {
         }
         saveProducts("products.csv", products);
 
+        const string referenceNumber = "T2026-001";
+        saveTransactions("transactions.csv", cart, referenceNumber, totalVatable,
+            totalVat, grandTotal, payment, change);
+
         // ITEMIZED RECEIPT
         printHeader("RECEIPT");
         cout << "Products Ordered:" << endl;
@@ -563,10 +595,11 @@ int main() {
         }
         cout << "----------------------------------------" << endl;
         cout << "Total:    ₱" << grandTotal << endl;
-        cout << "VATable   ₱" << totalVatable << endl;
+        cout << "Subtotal  ₱" << totalVatable << endl;
         cout << "VAT       ₱" << totalVat << endl;
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
+        cout << "Reference Number: " << referenceNumber << endl;
         printHeader("THANK YOU!");
     }
 
