@@ -20,36 +20,47 @@
 #include <iomanip>
 #include <cctype>
 #include <ctime>
+#include <cmath>
 
 using namespace std;
+
+[[noreturn]] void invalidInput(const string& message = "Invalid input! Exiting.") {
+    cout << message << endl;
+    exit(EXIT_FAILURE);
+}
+
 // SAFE INPUT HELPERS
 int readInt() {
     int value;
-    while (!(cin >> value)) {
+    if (!(cin >> value)) {
         if (cin.eof()) {
             cout << endl << "Input ended. Exiting." << endl;
             exit(EXIT_FAILURE);
         }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input! Please enter a number: ";
+        invalidInput("Invalid input! Please enter a number. Exiting.");
     }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    string remainder;
+    getline(cin, remainder);
+    if (remainder.find_first_not_of(" \t\r") != string::npos) {
+        invalidInput("Invalid input! Please enter a number. Exiting.");
+    }
     return value;
 }
 
 double readDouble() {
     double value;
-    while (!(cin >> value)) {
+    if (!(cin >> value)) {
         if (cin.eof()) {
             cout << endl << "Input ended. Exiting." << endl;
             exit(EXIT_FAILURE);
         }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input! Please enter a number: ";
+        invalidInput("Invalid input! Please enter a number. Exiting.");
     }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    string remainder;
+    getline(cin, remainder);
+    if (remainder.find_first_not_of(" \t\r") != string::npos) {
+        invalidInput("Invalid input! Please enter a number. Exiting.");
+    }
     return value;
 }
  
@@ -219,7 +230,9 @@ bool authenticateAdmin() {
         string enteredPassword;
  
         cout << "Enter administrator password: ";
-        cin >> enteredPassword;
+        if (!(cin >> enteredPassword)) {
+            invalidInput("Unable to read administrator password!");
+        }
  
         if (enteredPassword == storedPassword) {
             cout << "Access granted." << endl;
@@ -287,19 +300,28 @@ int selectSubCategory(int categoryRes) {
             cout << "3.) Ear Care" << endl;
         break;
         default:
-            cout << "Invalid input!" << endl;
+            invalidInput("Invalid category selection!");
     }
  
     int subCategoryRes;
     subCategoryRes = readInt();
+    if (subCategoryRes < 1 || subCategoryRes > 3) {
+        invalidInput("Invalid subcategory selection!");
+    }
     return subCategoryRes;
 }
  
 // PRODUCTS FUNCTION
  
 int selectProduct(int categoryRes, int subCategoryRes, const vector<Product>& products) {
+    if (categoryRes < 1 || categoryRes > 5 || subCategoryRes < 1 || subCategoryRes > 3) {
+        invalidInput("Invalid product selection!");
+    }
 
     int firstProductIndex = (categoryRes - 1) * 9 + (subCategoryRes - 1) * 3;
+    if (firstProductIndex + 2 >= static_cast<int>(products.size())) {
+        invalidInput("Product selection is unavailable!");
+    }
 
     printHeader(products[firstProductIndex].subcategory);
 
@@ -312,6 +334,9 @@ int selectProduct(int categoryRes, int subCategoryRes, const vector<Product>& pr
 
     int productRes;
     productRes = readInt();
+    if (productRes < 1 || productRes > 3) {
+        invalidInput("Invalid product selection!");
+    }
     return productRes;
 }
  
@@ -327,9 +352,8 @@ string selectPaymentMethod() {
     cout << "3.) Bank" << endl;
     methodRes = readInt();
  
-    while (methodRes < 1 || methodRes > 3) {
-        cout << "Invalid input! Enter again: ";
-        methodRes = readInt();
+    if (methodRes < 1 || methodRes > 3) {
+        invalidInput("Invalid payment method selection!");
     }
  
     switch (methodRes) {
@@ -342,9 +366,8 @@ string selectPaymentMethod() {
             cout << "3.) GoTyme" << endl;
             providerRes = readInt();
  
-            while (providerRes < 1 || providerRes > 3) {
-                cout << "Invalid input! Enter again: ";
-                providerRes = readInt();
+            if (providerRes < 1 || providerRes > 3) {
+                invalidInput("Invalid e-wallet selection!");
             }
  
             if (providerRes == 1) return "E-Wallet - GCash";
@@ -357,9 +380,8 @@ string selectPaymentMethod() {
             cout << "3.) China Bank" << endl;
             providerRes = readInt();
  
-            while (providerRes < 1 || providerRes > 3) {
-                cout << "Invalid input! Enter again: ";
-                providerRes = readInt();
+            if (providerRes < 1 || providerRes > 3) {
+                invalidInput("Invalid bank selection!");
             }
  
             if (providerRes == 1) return "Bank - BDO";
@@ -425,9 +447,8 @@ int main() {
                 cout << "Enter quantity: ";
                 quantity = readInt();
 
-                while (quantity < 1 || quantity > available) {
-                    cout << "Invalid quantity or insufficient stock! Enter again: ";
-                    quantity = readInt();
+                if (quantity < 1 || quantity > available) {
+                    invalidInput("Invalid quantity or insufficient stock!");
                 }
 
                 bool found = false;
@@ -444,10 +465,13 @@ int main() {
             if (quantity > 0) cout << "Successfully added " << quantity << "x " << selectedProduct.name << " to your cart!" << endl;
  
         } else {
-            cout << "Invalid selection!" << endl;
+            invalidInput("Invalid selection!");
         }
         cout << "Would you like to order more? (Y/N): ";
         cin >> looper;
+        if (!cin || (looper != 'y' && looper != 'Y' && looper != 'n' && looper != 'N')) {
+            invalidInput("Invalid response!");
+        }
         } while (looper == 'y' || looper == 'Y');
         break;
         }  
@@ -462,10 +486,9 @@ int main() {
             cout << "1.) Change Product Price" << endl;
             cout << "2.) Change Product Stock Quantity" << endl;
             adminMenuRes = readInt();
- 
+
             if (adminMenuRes != 1 && adminMenuRes != 2) {
-                cout << "Invalid input!" << endl;
-                break;
+                invalidInput("Invalid administrator menu selection!");
             }
  
             cout << "Choose a product to modify." << endl;
@@ -480,7 +503,7 @@ int main() {
             break;
  
         default:
-            cout << "Invalid input!" << endl;
+            invalidInput("Invalid main menu selection!");
     }
  
     
@@ -497,6 +520,9 @@ int main() {
             case 1:
                 cout << "Enter the new Product price for: " << selectedProduct.name << endl;
                 priceRes = readDouble();
+                if (!std::isfinite(priceRes) || priceRes <= 0) {
+                    invalidInput("Product price must be a positive number!");
+                }
                 selectedProduct.price = priceRes;
                 cout << "The new Product price for: " << selectedProduct.name << " is " << priceRes << "!" << endl;
                 saveProducts("products.csv", products);
@@ -504,12 +530,15 @@ int main() {
             case 2:
                 cout << "Enter the new Product stock for: " << selectedProduct.name << endl;
                 stockRes = readInt();
+                if (stockRes < 0) {
+                    invalidInput("Product stock cannot be negative!");
+                }
                 selectedProduct.stock = stockRes;
                 cout << "The new Product stock for: " << selectedProduct.name << " is " << stockRes << "!" << endl;
                 saveProducts("products.csv", products);
             break;
             default:
-                cout << "Invalid input!" << endl;
+                invalidInput("Invalid administrator operation!");
         }
     }
  
@@ -519,7 +548,9 @@ int main() {
         
         printHeader("DISCOUNT");
         cout << "Are you a senior citizen or PWD? (Y/N): ";
-        cin >> discountRes;
+        if (!(cin >> discountRes)) {
+            invalidInput("Unable to read discount response!");
+        }
  
         bool customerEligible;
  
@@ -533,9 +564,7 @@ int main() {
                 customerEligible = false;
                 break;
             default:
-                cout << "Invalid input!" << endl;
-                customerEligible = false;
-                break;
+                invalidInput("Invalid discount response!");
         }
  
         set<int> noVatExemptionIds = {
@@ -597,10 +626,9 @@ int main() {
         if (paymentMethod == "Cash") {
             cout << "Enter payment (0 to cancel order): ₱";
             payment = readDouble();
- 
-            while (payment != 0 && payment < grandTotal) {
-                cout << "Insufficient payment! Enter again (0 to cancel order): ₱";
-                payment = readDouble();
+
+            if (!std::isfinite(payment) || payment < 0 || (payment != 0 && payment < grandTotal)) {
+                invalidInput("Invalid or insufficient payment!");
             }
  
             if (payment == 0) {
@@ -608,15 +636,18 @@ int main() {
             }
         } else {
             cout << "Enter the payment reference number: ";
-            cin >> paymentRef;
+            if (!(cin >> paymentRef)) {
+                invalidInput("Unable to read payment reference!");
+            }
  
             char confirmRes;
             cout << "Payment received? (Y = yes, C = cancel order): ";
-            cin >> confirmRes;
- 
-            while (confirmRes != 'Y' && confirmRes != 'y' && confirmRes != 'C' && confirmRes != 'c') {
-                cout << "Invalid input! Payment received? (Y = yes, C = cancel order): ";
-                cin >> confirmRes;
+            if (!(cin >> confirmRes)) {
+                invalidInput("Unable to read payment confirmation!");
+            }
+
+            if (!cin || (confirmRes != 'Y' && confirmRes != 'y' && confirmRes != 'C' && confirmRes != 'c')) {
+                invalidInput("Invalid payment confirmation!");
             }
  
             if (confirmRes == 'C' || confirmRes == 'c') {
