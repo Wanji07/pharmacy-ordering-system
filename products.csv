@@ -1,4 +1,4 @@
-﻿ID,Name,Category,Subcategory,Price,Stock
+ID,Name,Category,Subcategory,Price,Stock
 1,Paracetamol 500mg,Medicines & Health Products,Pain & Fever Medicine,8,100
 2,Ibuprofen 200mg,Medicines & Health Products,Pain & Fever Medicine,8,100
 3,Mefenamic Acid 500mg,Medicines & Health Products,Pain & Fever Medicine,10,100
@@ -16,7 +16,7 @@
 15,Facial Tissue,Over-the-Counter & Personal Care Products,Hygiene Products,60,100
 16,Digital Thermometer,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,150,100
 17,Face Mask Pack,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,80,100
-18,Hot/Cold Compress,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,120,100
+18,Hot/Cold Compress,Over-the-Counter & Personal Care Products,Health & Wellness Accessories,120,99
 19,Digital Blood Pressure Monitor,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1500,100
 20,Digital Pulse Oximeter,Pharmacy Equipment & Supplies,Medical Monitoring Devices,800,100
 21,Digital Weighing Scale,Pharmacy Equipment & Supplies,Medical Monitoring Devices,1200,100

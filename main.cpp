@@ -446,7 +446,7 @@ int main() {
         } else {
             cout << "Invalid selection!" << endl;
         }
-        cout << "Would you like to order more? (y/n): ";
+        cout << "Would you like to order more? (Y/N): ";
         cin >> looper;
         } while (looper == 'y' || looper == 'Y');
         break;
