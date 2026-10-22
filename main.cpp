@@ -62,6 +62,7 @@ vector<Product> loadProducts(string filename) {
 
     ifstream file(filename);
 
+
     if (!file.is_open()) {
         cout << "Unable to open the CSV file." << endl;
         return products;
@@ -119,13 +120,14 @@ void saveProducts(string filename, const vector<Product>& products) {
     }
 
     file.close();
-
 }
 
 // SAVE TRANSACTION CSV
 void saveTransactions(const string& filename, const vector<CartItem>& cartItems,
     const string& referenceNumber, double subtotal, double vat, double total,
-    double payment, double change) {
+    double payment, double change) 
+    
+    {
     ifstream existingFile(filename);
     bool writeHeader = !existingFile || existingFile.peek() == ifstream::traits_type::eof();
     existingFile.close();
@@ -560,7 +562,7 @@ int main() {
 
         double payment, change;
         
-1        cout.setf(ios::fixed);
+1       cout.setf(ios::fixed);
         cout.precision(2);
 
         cout << "Total Amount: ₱" << grandTotal << endl;
@@ -600,6 +602,8 @@ int main() {
         cout << "Payment:  ₱" << payment << endl;
         cout << "Change:   ₱" << change << endl;
         cout << "Reference Number: " << referenceNumber << endl;
+        saveTransactions("transactions.csv", cart, referenceNumber, totalVatable,
+            totalVat, grandTotal, payment, change);
         printHeader("THANK YOU!");
     }
 
