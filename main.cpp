@@ -8,6 +8,7 @@
 #include <sstream>
 #include <string>
 #include <limits>
+#include <stdexcept>
  
 // CSV libraries
 #include <fstream>
@@ -24,9 +25,20 @@
 
 using namespace std;
 
-[[noreturn]] void invalidInput(const string& message = "Invalid input! Exiting.") {
+class InvalidInputException : public runtime_error {
+public:
+    explicit InvalidInputException(const string& message) : runtime_error(message) {}
+};
+
+[[noreturn]] void invalidInput(const string& message = "Invalid input!") {
+    if (cin.eof()) {
+        cout << endl << "Input ended. Exiting." << endl;
+        exit(EXIT_FAILURE);
+    }
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << message << endl;
-    exit(EXIT_FAILURE);
+    throw InvalidInputException(message);
 }
 
 // SAFE INPUT HELPERS
@@ -37,12 +49,12 @@ int readInt() {
             cout << endl << "Input ended. Exiting." << endl;
             exit(EXIT_FAILURE);
         }
-        invalidInput("Invalid input! Please enter a number. Exiting.");
+        invalidInput("Invalid input! Please enter a number.");
     }
     string remainder;
     getline(cin, remainder);
     if (remainder.find_first_not_of(" \t\r") != string::npos) {
-        invalidInput("Invalid input! Please enter a number. Exiting.");
+        invalidInput("Invalid input! Please enter a number.");
     }
     return value;
 }
@@ -54,12 +66,12 @@ double readDouble() {
             cout << endl << "Input ended. Exiting." << endl;
             exit(EXIT_FAILURE);
         }
-        invalidInput("Invalid input! Please enter a number. Exiting.");
+        invalidInput("Invalid input! Please enter a number.");
     }
     string remainder;
     getline(cin, remainder);
     if (remainder.find_first_not_of(" \t\r") != string::npos) {
-        invalidInput("Invalid input! Please enter a number. Exiting.");
+        invalidInput("Invalid input! Please enter a number.");
     }
     return value;
 }
@@ -411,13 +423,15 @@ int main() {
         ░██     ░███████   ░███████  ░██    ░██ ░██    ░██  ░███████    ░██████   ░█████░██ ░██       ░███████     
     )" << endl;
  
-    printHeader("MAIN MENU");
-    cout << "1.) Order Products" << endl;
-    cout << "2.) Enter as Administrator" << endl;
-    cout << "3.) Exit" << endl;
-    menuRes = readInt();
- 
-    switch (menuRes) {
+    while (true) {
+        try {
+            printHeader("MAIN MENU");
+            cout << "1.) Order Products" << endl;
+            cout << "2.) Enter as Administrator" << endl;
+            cout << "3.) Exit" << endl;
+            menuRes = readInt();
+
+            switch (menuRes) {
         case 1: {
         char looper;
         do {
@@ -710,5 +724,9 @@ int main() {
         printHeader("THANK YOU!");
     }
  
-    return 0;
+            return 0;
+        } catch (const InvalidInputException&) {
+            cout << "Returning to the main menu." << endl;
+        }
+    }
 }
